@@ -1,12 +1,13 @@
-import { Button } from "../button";
 import ToDoCart from "./ToDoCart";
+import ToDoFilter from "./ToDoFilter";
+import ToDoModal from "./ToDoModal";
 
 const ToDoContainer = () => {
   return (
     <div>
       <div className="flex justify-between mb-5">
-        <Button className="bg-primary-gradient font-bold">Add ToDo</Button>
-        <Button className="bg-primary-gradient font-bold">Filter</Button>
+        <ToDoModal></ToDoModal>
+        <ToDoFilter></ToDoFilter>
       </div>
 
       <div className="bg-primary-gradient w-full h-full rounded-xl p-1 border-0">

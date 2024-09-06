@@ -54,9 +54,6 @@ export default {
       backgroundImage: {
         "primary-gradient": "linear-gradient(30deg, #DC02C3, #5C53FE)",
       },
-      textColor: {
-        "text-gradient": "linear-gradient(30deg, #DC02C3, #5C53FE)",
-      }
     },
   },
   plugins: [require("tailwindcss-animate")],
