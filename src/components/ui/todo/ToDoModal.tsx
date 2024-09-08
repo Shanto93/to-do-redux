@@ -21,8 +21,8 @@ const ToDoModal = () => {
     console.log({ task, details });
     const taskDetails = {
       id: Math.random().toString(36).slice(2, 7),
-      task: task,
-      details: details,
+      title: task,
+      description: details,
     };
     dispatch(addToDo(taskDetails));
   };
@@ -34,7 +34,7 @@ const ToDoModal = () => {
           {/* Make sure there is a single child element */}
           <Button className="bg-primary-gradient font-bold">Add ToDo</Button>
         </DialogTrigger>
-        <div className="flex justify-end bg-primary-gradient rounded-md p-1">
+        <div className="flex justify-end bg-primary-gradient rounded-md px-1">
           <DialogContent className="sm:max-w-[425px] px-7 py-7 rounded-md bg-white">
             <form className="" onSubmit={handleSubmit}>
               <div className="grid gap-4 py-4">
