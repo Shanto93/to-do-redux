@@ -1,20 +1,28 @@
-import { useAppSelector } from "@/redux/hooks";
+import { useGetTodoQuery } from "@/redux/api/api";
 import ToDoCart from "./ToDoCart";
 import ToDoFilter from "./ToDoFilter";
 import ToDoModal from "./ToDoModal";
 
 const ToDoContainer = () => {
-  const { todos } = useAppSelector((state) => state.todos);
+  // From Local State
+  // const { todos } = useAppSelector((state) => state.todos);
+
+  // From server state
+  const {data: todos, isLoading} = useGetTodoQuery(undefined);
+
+  if(isLoading){
+    <div>Loading...</div>
+  }
   return (
     <div>
       <div className="flex justify-between mb-5">
         <ToDoModal></ToDoModal>
         <ToDoFilter></ToDoFilter>
       </div>
-      {todos.length > 0 ? (
+      {todos?.data.length > 0 ? (
         <div className="bg-primary-gradient w-full h-full rounded-xl p-1 border-0">
           <div className="border-0 bg-slate-700 space-y-2 bg-opacity-60 rounded-xl">
-            {todos.map((item) => (
+            {todos?.data.map((item) => (
               <ToDoCart {...item} />
             ))}
           </div>
