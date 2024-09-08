@@ -18,15 +18,16 @@ const ToDoCart = ({ id, title, description, isCompleted }: TProps) => {
   };
   return (
     <div className="flex bg-white rounded-md p-3 justify-between items-center font-semibold ">
-      <input
+      <input 
+      className="flex-1"
         onChange={() => dispatch(toggleToDo(id))}
         type="checkbox"
         name=""
         id=""
       />
-      <p>{title}</p>
-      <p>{description}</p>
-      <p>
+      <p className="flex-1">{title}</p>
+      <p className="flex-[2]">{description}</p>
+      <p className="flex-1">
         {isCompleted ? (
           <p className="text-green-500">Done</p>
         ) : (
