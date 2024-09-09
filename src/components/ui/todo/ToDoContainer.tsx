@@ -5,11 +5,11 @@ import ToDoModal from "./ToDoModal";
 import { useState } from "react";
 
 type TItems = {
-  id: string,
-  title: string,
-  description: string,
-  priority: string,
-  isCompleted?: boolean
+  _id: string;
+  title: string;
+  description: string;
+  priority: string;
+  isCompleted?: boolean;
 };
 
 const ToDoContainer = () => {
@@ -19,7 +19,7 @@ const ToDoContainer = () => {
 
   // From server state
   const { data: todos, isLoading } = useGetTodoQuery(priority);
-  
+
   console.log(priority);
 
   if (isLoading) {

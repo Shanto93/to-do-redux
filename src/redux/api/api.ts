@@ -23,7 +23,6 @@ export const baseApi = createApi({
     }),
     addTodo: builder.mutation({
       query: (data) => {
-        console.log("Inside function: ", data);
         return {
           url: "/tasks",
           method: "POST",
@@ -32,7 +31,18 @@ export const baseApi = createApi({
       },
       invalidatesTags: ["todo"],
     }),
+    updateStatus: builder.mutation({
+      query: (options) => {
+        console.log("Inside Base API: ", options);
+        return {
+          url: `/tasks/${options.id}`,
+          method: "PUT",
+          body: options.data,
+        };
+      },
+      invalidatesTags: ["todo"],
+    }),
   }),
 });
 
-export const { useGetTodoQuery, useAddTodoMutation } = baseApi;
+export const { useGetTodoQuery, useAddTodoMutation, useUpdateStatusMutation } = baseApi;

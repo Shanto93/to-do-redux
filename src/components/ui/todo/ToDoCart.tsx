@@ -1,10 +1,9 @@
-import { useAppDispatch } from "@/redux/hooks";
 import { Button } from "../button";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
-import { removeToDo, toggleToDo } from "@/redux/features/todoSlice";
+import { useUpdateStatusMutation } from "@/redux/api/api";
 
 type TProps = {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   isCompleted?: boolean;
@@ -12,23 +11,41 @@ type TProps = {
 };
 
 const ToDoCart = ({
-  id,
+  _id,
   title,
   description,
   isCompleted,
   priority,
 }: TProps) => {
-  const dispatch = useAppDispatch();
+  const [updateStatus, { isLoading }] = useUpdateStatusMutation();
 
-  const handleDelete = () => {
-    dispatch(removeToDo(id));
+  const handleToggle = () => {
+    if (isLoading) {
+      <p>Loading...</p>;
+    }
+
+    const statusData = {
+      title,
+      description,
+      isCompleted: !isCompleted,
+      priority,
+    };
+
+    const options = {
+      id: _id,
+      data: statusData,
+    };
+
+    updateStatus(options);
   };
+
   return (
     <div className="flex bg-white rounded-md p-3 justify-between items-center font-semibold ">
       <input
         className="flex-1"
-        onChange={() => dispatch(toggleToDo(id))}
+        onChange={handleToggle}
         type="checkbox"
+        defaultChecked={isCompleted}
         name=""
         id=""
       />
@@ -52,7 +69,7 @@ const ToDoCart = ({
         )}
       </p>
       <div className="">
-        <Button onClick={handleDelete} className="bg-red-500 mr-8 text-lg">
+        <Button className="bg-red-500 mr-8 text-lg">
           <FaTrashAlt />
         </Button>
         <Button className=" bg-[#5C53FE] text-lg">
