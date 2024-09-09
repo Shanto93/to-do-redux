@@ -1,9 +1,10 @@
 import { Button } from "../button";
-import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import {
   useDeleteTodoMutation,
   useUpdateStatusMutation,
 } from "@/redux/api/api";
+import UpdateToDo from "./UpdateToDo";
 
 type TProps = {
   _id: string;
@@ -83,9 +84,14 @@ const ToDoCart = ({
         <Button onClick={handleDelete} className="bg-red-500 mr-8 text-lg">
           <FaTrashAlt />
         </Button>
-        <Button className=" bg-[#5C53FE] text-lg">
-          <FaRegEdit />
-        </Button>
+        <button>
+          <UpdateToDo
+            _id={_id}
+            title={title}
+            description={description}
+            priority={priority}
+          ></UpdateToDo>
+        </button>
       </div>
     </div>
   );
