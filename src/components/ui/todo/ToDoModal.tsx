@@ -8,23 +8,33 @@ import { Button } from "../button";
 import { Label } from "@radix-ui/react-dropdown-menu";
 import { Input } from "../input";
 import { useState, FormEvent } from "react";
-import { useAppDispatch } from "@/redux/hooks";
-import { addToDo } from "@/redux/features/todoSlice";
+import { useAddTodoMutation } from "@/redux/api/api";
 
 const ToDoModal = () => {
   const [task, setTask] = useState("");
   const [details, setDetails] = useState("");
-  const dispatch = useAppDispatch();
+  const [priority, setPriority] = useState("");
+
+  // For Local state management
+  // const dispatch = useAppDispatch();
+
+  //For server state management
+  const [addToDo, { data, isLoading }] = useAddTodoMutation();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log({ task, details });
     const taskDetails = {
-      id: Math.random().toString(36).slice(2, 7),
       title: task,
       description: details,
+      priority: priority,
+      isCompleted: false
     };
-    dispatch(addToDo(taskDetails));
+    // For Local state management
+    // dispatch(addToDo(taskDetails));
+
+    console.log(data, isLoading, taskDetails);
+
+    addToDo(taskDetails);
   };
 
   return (
@@ -54,6 +64,17 @@ const ToDoModal = () => {
                     id="details"
                     className="col-span-3"
                   />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label className="text-right">Priority</Label>
+                  <select onChange={(e) => setPriority(e.target.value)} className="select w-full col-span-3">
+                    <option disabled selected>
+                      Select a priority
+                    </option>
+                    <option>high</option>
+                    <option>medium</option>
+                    <option>low</option>
+                  </select>
                 </div>
               </div>
               <div className="flex justify-between">
