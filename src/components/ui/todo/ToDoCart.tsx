@@ -1,6 +1,9 @@
 import { Button } from "../button";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
-import { useUpdateStatusMutation } from "@/redux/api/api";
+import {
+  useDeleteTodoMutation,
+  useUpdateStatusMutation,
+} from "@/redux/api/api";
 
 type TProps = {
   _id: string;
@@ -17,10 +20,11 @@ const ToDoCart = ({
   isCompleted,
   priority,
 }: TProps) => {
-  const [updateStatus, { isLoading }] = useUpdateStatusMutation();
+  const [updateStatus, { isLoading: loading }] = useUpdateStatusMutation();
+  const [deleteTodo, { isLoading }] = useDeleteTodoMutation();
 
   const handleToggle = () => {
-    if (isLoading) {
+    if (loading) {
       <p>Loading...</p>;
     }
 
@@ -37,6 +41,13 @@ const ToDoCart = ({
     };
 
     updateStatus(options);
+  };
+
+  const handleDelete = () => {
+    if (isLoading) {
+      <p>Loading...</p>;
+    }
+    deleteTodo(_id);
   };
 
   return (
@@ -69,7 +80,7 @@ const ToDoCart = ({
         )}
       </p>
       <div className="">
-        <Button className="bg-red-500 mr-8 text-lg">
+        <Button onClick={handleDelete} className="bg-red-500 mr-8 text-lg">
           <FaTrashAlt />
         </Button>
         <Button className=" bg-[#5C53FE] text-lg">
